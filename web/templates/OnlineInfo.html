@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/picker.js"></script>
+	<script type="text/javascript" src="../static/picker.date.js"></script>
+	<script type="text/javascript" src="../static/image-picker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/classic.css">
+	<link rel="stylesheet" type="text/css" href="../static/classic.date.css">
+	<link rel="stylesheet" type="text/css" href="../static/image-picker.css">
+
+	<script src="../static/highstock.js"></script>
+	<script src="../static/exporting.js"></script>
+	<script src="../static/mychart.js"></script>
+
+	<style type="text/css">
+		input{
+			font-family: courier, sans-serif;
+	    	font-size: 18px;
+	    	line-height: 1.6;
+			border: 3px solid #cccccc;
+		    padding: .6em 1em;
+		    font-weight: bold;
+		    width: 100%;
+		    -webkit-appearance: none;
+		    box-shadow: none;
+		    text-align:center;
+		    box-sizing: border-box;
+		}
+		div#outside{
+		    background: #f8faf9;
+		    border: 1px solid #ededed;
+		    border-radius: 0 0 4px 4px;
+		    max-width: 400px;
+	   		margin: 0 auto;
+		}
+		div#inside{
+		    border: 1px solid #ededed;
+		    border-top: 0;
+		    border-radius: 0 0 4px 4px;
+	   		/*margin: 20px;*/
+	   		padding: 10px 15px 10px 15px;
+		}
+		p{
+			height:1px;
+			margin-top: 0px;
+		}
+		a.topBar{
+			color:white;
+			font-size:17px;
+			font-family:'Montserrat',sans-serif;
+			font-weight: bold;
+			padding:12px 40px;
+			margin:10px;
+			text-decoration:none;
+			letter-spacing:1px;
+			position:relative;
+			top:35%;
+			width:23% ;
+			height:100%;
+		}
+
+
+	</style>
+	<script type="text/javascript">
+		var date;
+		var userInfo = [];
+		window.onload = function (){
+			ChartInit();
+		    $('.datepicker').pickadate({
+				format: 'dddd, mmm dd, yyyy',
+			 	formatSubmit: 'yyyymmdd',
+			 	onStart: function() {
+					date = document.getElementsByName("_submit")[0].value;
+			 		getDailyuser(date);
+				},
+			 	onSet: function(context){
+			 		date = document.getElementsByName("_submit")[0].value;
+			 		getDailyuser(date);
+			 	}
+			})
+		}
+		function getDailyuser(date){
+			userInfo = [];
+			removeAllSeries();
+			$("#userselect").empty();
+			$.getJSON( "http://localhost:5000/api/v1.0/getOnlineInfo/"+date, function(data) {
+						$.each( data, function( i, item ) {
+						  		userInfo.push({userName:item.userName , userID:item.userID})
+						    });
+						})
+						.always(function(data) {
+							for(var i=0; i<userInfo.length; i++){
+								photo_url = "http://graph.facebook.com/"+userInfo[i].userID+"/picture?type=large&redirect=true&width=100&height=100";
+								$('<option data-img-label="<div style=\'text-align:center;\'><b>'+userInfo[i].userName+'</b></div>" data-img-src="'+photo_url+'" value="'+i+'" ></option>').appendTo('#userselect');
+							}
+							$("select").imagepicker({
+						        hide_select : true,
+						        show_label  : true,
+						        limit : 2,
+						        limit_reached: function(){alert('目前最多只能比較兩人上線時間唷!')},
+						        clicked: function(select, option, event){
+						        	index = select.value();
+						        	if(select.is_selected() == true){
+						        		getOnlineInfo(userInfo[index].userID,userInfo[index].userName,date);
+						        	}
+						        	else{
+						        		removeSeries(userInfo[index].userName);
+						        	}
+						        }
+						    })
+						});
+		}
+
+	</script>
+</head>
+<body bgcolor="#f8faf9">
+	<div style="position:fixed;top:0;left:0;width:100%;background:#3a5795;height:8%;z-index: 100">
+		<a class="topBar" href="javascript:(window.location.href='./OnlineInfo')">Friend Online Information(day)</a>
+		<a class="topBar" href="javascript:(window.location.href='./OnlineCount')">Friend Online Statistics(week)</a>
+	</div>
+	<div id="outside" style="color:white;margin-top:5%" >
+		<div style="position: relative;" id="inside">
+			<input type="text" class="datepicker" data-value=true></input>
+		</div>
+	</div>
+	<div style="width:95%;border:2px black solid;margin:0 auto;margin-top: 10px">
+		<div id="container" style="width:99%; height:400px;"></div>
+	</div>
+	<div style="margin-top: 10px">
+		<select class="image-picker show-labels" id="userselect" multiple="multiple">
+		</select>
+	</div>
+</body>
+
+</html>

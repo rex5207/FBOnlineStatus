@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="../static/highstock.js"></script>
+	<script src="../static/exporting.js"></script>
+	<script src="../static/mychart.js"></script>
+	<style type="text/css">
+		a.topBar{
+			color:white;
+			font-size:17px;
+			font-family:'Montserrat',sans-serif;
+			font-weight: bold;
+			padding:12px 40px;
+			margin:10px;
+			text-decoration:none;
+			letter-spacing:1px;
+			position:relative;
+			top:35%;
+			width:23% ;
+			height:100%;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function (){
+			ChartInitWeek();
+		   	getOnlineCount(0);
+		}
+	</script>
+</head>
+<body bgcolor="#f8faf9">
+	<div style="position:fixed;top:0;left:0;width:100%;background:#3a5795;height:8%;z-index: 100">
+		<a class="topBar" href="javascript:(window.location.href='./OnlineInfo')">Friend Online Information(day)</a>
+		<a class="topBar" href="javascript:(window.location.href='./OnlineCount')">Friend Online Statistics(week)</a>
+	</div>
+	<div style="width:95%;border:2px black solid;margin:0 auto;margin-top: 5%">
+		<div id="container" style="width:99%; height:400px;"></div>
+	</div>
+</body>
+
+</html>
