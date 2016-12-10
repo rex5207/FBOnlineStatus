@@ -183,8 +183,8 @@ if __name__ == "__main__":
                 now_count = now_count+1
         online_count[hour_now*60 + min_now] = online_count[hour_now*60 + min_now][:-1] + " "+str(now_count)+'\n'
 
-        # if(int(min_now)%10 == 0):
-        write_onlineInfo(year_now,month_now,day_now)
-        write_dailyfriend(year_now,month_now,day_now)
-        write_onlineCount(week_now)
+        if(int(min_now)%10 == 0):
+            write_onlineInfo(year_now,month_now,day_now)
+            write_dailyfriend(year_now,month_now,day_now)
+            write_onlineCount(week_now)
     driver.close()
