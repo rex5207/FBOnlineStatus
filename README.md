@@ -7,6 +7,7 @@ Python
 # Setup
 1.Set your account/password in /util/setting.py  
 2.Download [Chromedriver](https://chromedriver.storage.googleapis.com/index.html?path=2.26/) according to your OS and put it in root folder.
+
 3.Install the Python library
 ```
 sudo pip install selenium
