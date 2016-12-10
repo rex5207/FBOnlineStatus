@@ -1,7 +1,6 @@
 import time
 from util import setting
 from util import creatFile
-from web import restAPI
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -21,7 +20,10 @@ daily_friend = dict()
 online_count = [None]*1440
 display = Display(visible=0, size=(800, 600))
 display.start()
-driver = webdriver.Chrome("./chromedriver")
+if setting.osVersion is 0:
+    driver = webdriver.Chrome("./chromedriver")
+else:
+    driver = webdriver.Chrome()
 file_name_week = ""
 file_name_year = ""
 file_name_month = ""
@@ -123,17 +125,8 @@ def login_with_driver():
     passw.send_keys(password)
     logbtn.click()
 
-def run_app():
-    restAPI.app.run(host='0.0.0.0',theaded=True)
-
 
 if __name__ == "__main__":
-
-    # restAPI.app.run(debug=True)
-    # restAPI.app.run(threaded=True)
-    # p = multiprocessing.Process(target=run_app())
-    # p.start()
-
 
     print "Read the former file"
     read_onlineInfo()
