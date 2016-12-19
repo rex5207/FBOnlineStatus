@@ -30,12 +30,12 @@ You can use Web to see your friends' online information.
 You can use Web to see your friends' online amount.
 
 #Restful API
-1.[localhost:5000/api/v1.0/getCount/<week>]()
+1.[localhost:5000/api/v1.0/getCount/\<week>]()
 Get the average number of your online frineds by 0~6(Mon~Sun).
 
-2.[localhost:5000/api/v1.0/getOnlineInfo/<date>]()
+2.[localhost:5000/api/v1.0/getOnlineInfo/\<date>]()
 Get the list of your online frineds by date (ex.20161210).
 
-3.[localhost:5000/api/v1.0/getOnlineInfo/<date>/<userID>]()
+3.[localhost:5000/api/v1.0/getOnlineInfo/\<date>/\<userID>]()
 Get the information of your specific frineds by date (ex.20161210/10231233232).
 
