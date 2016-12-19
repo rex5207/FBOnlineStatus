@@ -7,6 +7,7 @@ Python
 # Setup
 1.Set your account/password in /util/setting.py  
 2-a.Download [Chromedriver](https://chromedriver.storage.googleapis.com/index.html?path=2.26/) according to your OS and put it in root folder.(For Windows/MacOS/Ubuntu Deskop)
+
 2-b.If your OS is Ubuntu Server, use the following command.
 ```
 sudo apt-get install chromium-chromedriver
