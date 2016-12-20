@@ -12,6 +12,7 @@ Python
 ```
 sudo apt-get install chromium-chromedriver
 sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+sudo apt-get install xvfb
 ```
 
 3.Install the Python library
@@ -24,7 +25,9 @@ sudo pip install webob (Option! For Web)
 
 ```
 4.python main.py
+
 5.python restAPI.py (Option! Run your Web)
+
 6.Enjoy your crawling!
   
 
